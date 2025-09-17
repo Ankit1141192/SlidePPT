@@ -109,7 +109,8 @@ const Slide: React.FC<SlideProps> = ({ slide, isActive, animationDelay }) => {
       }`}
     >
       <div className="flex flex-col md:flex-row gap-6 md:gap-8 h-full items-start">
-        <div className="flex-1 min-w-0">
+        {/* Text */}
+        <div className="flex-1 min-w-0 order-1 md:order-none">
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 text-learning-primary">
             {slide.title}
           </h1>
@@ -139,11 +140,12 @@ const Slide: React.FC<SlideProps> = ({ slide, isActive, animationDelay }) => {
           </ul>
         </div>
         
-        <div className="flex-1 glass-effect rounded-xl sm:rounded-2xl p-4 sm:p-6 learning-glow">
+        {/* Image */}
+        <div className="flex-1 glass-effect rounded-xl sm:rounded-2xl p-4 sm:p-6 learning-glow order-2">
           <img 
             src={slide.image}
             alt={slide.title}
-            className="w-full h-40 sm:h-56 md:h-64 object-cover rounded-lg sm:rounded-xl border border-border mb-3 sm:mb-4"
+            className="w-full h-48 sm:h-56 md:h-64 lg:h-72 object-cover rounded-lg sm:rounded-xl border border-border mb-3 sm:mb-4"
           />
           <p className="text-xs sm:text-sm text-muted-foreground italic">
             💡 {slide.tip}
@@ -232,56 +234,56 @@ const LearningPresentation: React.FC = () => {
             />
           ))}
         </div>
-
-        {/* Controls */}
-        <div className="absolute bottom-4 sm:bottom-6 left-4 right-4">
-          <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={prevSlide}
-              className="glass-effect text-xs sm:text-sm"
-            >
-              <ChevronLeft className="w-4 h-4 mr-1" />
-              Prev
-            </Button>
-            
-            <div className="flex-1">
-              <Progress value={progress} className="h-1.5 sm:h-2" />
-            </div>
-            
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={nextSlide}
-              className="glass-effect text-xs sm:text-sm"
-            >
-              Next
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
-
-          {/* Thumbnails */}
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            {slidesData.map((slide, index) => (
-              <button
-                key={slide.id}
-                onClick={() => goToSlide(index)}
-                className={`min-w-28 sm:min-w-32 p-2 sm:p-3 rounded-lg transition-all duration-200 glass-effect ${
-                  index === currentSlide
-                    ? 'ring-2 ring-learning-primary scale-105'
-                    : 'hover:scale-102'
-                }`}
-              >
-                <h4 className="text-[10px] sm:text-xs font-medium mb-1">Slide {slide.id}</h4>
-                <p className="text-[10px] sm:text-xs text-muted-foreground line-clamp-2">
-                  {slide.title}
-                </p>
-              </button>
-            ))}
-          </div>
-        </div>
       </Card>
+
+      {/* Controls */}
+      <div className="mt-4 sm:mt-6">
+        <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={prevSlide}
+            className="glass-effect text-xs sm:text-sm"
+          >
+            <ChevronLeft className="w-4 h-4 mr-1" />
+            Prev
+          </Button>
+          
+          <div className="flex-1">
+            <Progress value={progress} className="h-1.5 sm:h-2" />
+          </div>
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={nextSlide}
+            className="glass-effect text-xs sm:text-sm"
+          >
+            Next
+            <ChevronRight className="w-4 h-4 ml-1" />
+          </Button>
+        </div>
+
+        {/* Thumbnails */}
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
+          {slidesData.map((slide, index) => (
+            <button
+              key={slide.id}
+              onClick={() => goToSlide(index)}
+              className={`min-w-28 sm:min-w-32 p-2 sm:p-3 rounded-lg transition-all duration-200 glass-effect flex-shrink-0 ${
+                index === currentSlide
+                  ? 'ring-2 ring-learning-primary scale-105'
+                  : 'hover:scale-102'
+              }`}
+            >
+              <h4 className="text-[10px] sm:text-xs font-medium mb-1">Slide {slide.id}</h4>
+              <p className="text-[10px] sm:text-xs text-muted-foreground line-clamp-2">
+                {slide.title}
+              </p>
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Footer */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-6 text-xs sm:text-sm text-muted-foreground gap-2">
