@@ -104,28 +104,28 @@ interface SlideProps {
 const Slide: React.FC<SlideProps> = ({ slide, isActive, animationDelay }) => {
   return (
     <div 
-      className={`absolute inset-0 p-12 transition-all duration-500 ease-out ${
+      className={`absolute inset-0 p-4 sm:p-6 md:p-12 transition-all duration-500 ease-out ${
         isActive ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-5 scale-95'
       }`}
     >
-      <div className="flex gap-8 h-full items-start">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-8 h-full items-start">
         <div className="flex-1 min-w-0">
-          <h1 className="text-3xl font-bold mb-2 text-learning-primary">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 text-learning-primary">
             {slide.title}
           </h1>
           {slide.subtitle && (
-            <h2 className="text-xl mb-4 text-learning-secondary">
+            <h2 className="text-base sm:text-lg md:text-xl mb-4 text-learning-secondary">
               {slide.subtitle}
             </h2>
           )}
-          <p className="text-muted-foreground mb-6 leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 leading-relaxed">
             This section covers essential training facilitation principles for effective workplace learning.
           </p>
-          <ul className="space-y-3">
+          <ul className="space-y-2 sm:space-y-3">
             {slide.content.map((item, index) => (
               <li 
                 key={index}
-                className={`flex items-start gap-3 transition-all duration-300 ${
+                className={`flex items-start gap-2 sm:gap-3 transition-all duration-300 ${
                   isActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
                 }`}
                 style={{ 
@@ -133,19 +133,19 @@ const Slide: React.FC<SlideProps> = ({ slide, isActive, animationDelay }) => {
                 }}
               >
                 <div className="w-2 h-2 rounded-full bg-learning-primary mt-2 flex-shrink-0" />
-                <span className="text-foreground leading-relaxed">{item}</span>
+                <span className="text-xs sm:text-sm md:text-base text-foreground leading-relaxed">{item}</span>
               </li>
             ))}
           </ul>
         </div>
         
-        <div className="flex-1 glass-effect rounded-2xl p-6 learning-glow">
+        <div className="flex-1 glass-effect rounded-xl sm:rounded-2xl p-4 sm:p-6 learning-glow">
           <img 
             src={slide.image}
             alt={slide.title}
-            className="w-full h-64 object-cover rounded-xl border border-border mb-4"
+            className="w-full h-40 sm:h-56 md:h-64 object-cover rounded-lg sm:rounded-xl border border-border mb-3 sm:mb-4"
           />
-          <p className="text-sm text-muted-foreground italic">
+          <p className="text-xs sm:text-sm text-muted-foreground italic">
             💡 {slide.tip}
           </p>
         </div>
@@ -174,7 +174,6 @@ const LearningPresentation: React.FC = () => {
     setIsAutoplay((prev) => !prev);
   }, []);
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight') nextSlide();
@@ -189,10 +188,8 @@ const LearningPresentation: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [nextSlide, prevSlide, toggleAutoplay]);
 
-  // Autoplay functionality
   useEffect(() => {
     if (!isAutoplay) return;
-    
     const timer = setInterval(nextSlide, 5000);
     return () => clearInterval(timer);
   }, [isAutoplay, nextSlide]);
@@ -200,31 +197,31 @@ const LearningPresentation: React.FC = () => {
   const progress = ((currentSlide + 1) / slidesData.length) * 100;
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-4 sm:p-6">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <div className="text-learning-primary font-semibold">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
+        <div className="text-learning-primary font-semibold text-sm sm:text-base">
           Learning Facilitation Platform
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3">
           <Button
             variant="outline"
             size="sm"
             onClick={toggleAutoplay}
-            className="glass-effect"
+            className="glass-effect text-xs sm:text-sm"
           >
-            {isAutoplay ? <Pause className="w-4 h-4 mr-2" /> : <Play className="w-4 h-4 mr-2" />}
+            {isAutoplay ? <Pause className="w-4 h-4 mr-1" /> : <Play className="w-4 h-4 mr-1" />}
             {isAutoplay ? 'Pause' : 'Autoplay'}
           </Button>
-          <Button variant="outline" size="sm" className="glass-effect">
-            <Download className="w-4 h-4 mr-2" />
+          <Button variant="outline" size="sm" className="glass-effect text-xs sm:text-sm">
+            <Download className="w-4 h-4 mr-1" />
             Export
           </Button>
         </div>
       </div>
 
       {/* Main Stage */}
-      <Card className="relative overflow-hidden bg-slide-bg border-border learning-glow min-h-[600px]">
+      <Card className="relative overflow-hidden bg-slide-bg border-border learning-glow min-h-[400px] sm:min-h-[500px] md:min-h-[600px]">
         <div className="relative h-full">
           {slidesData.map((slide, index) => (
             <Slide
@@ -237,27 +234,27 @@ const LearningPresentation: React.FC = () => {
         </div>
 
         {/* Controls */}
-        <div className="absolute bottom-6 left-6 right-6">
-          <div className="flex items-center gap-4 mb-4">
+        <div className="absolute bottom-4 sm:bottom-6 left-4 right-4">
+          <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
             <Button
               variant="outline"
               size="sm"
               onClick={prevSlide}
-              className="glass-effect"
+              className="glass-effect text-xs sm:text-sm"
             >
               <ChevronLeft className="w-4 h-4 mr-1" />
-              Previous
+              Prev
             </Button>
             
             <div className="flex-1">
-              <Progress value={progress} className="h-2" />
+              <Progress value={progress} className="h-1.5 sm:h-2" />
             </div>
             
             <Button
               variant="outline"
               size="sm"
               onClick={nextSlide}
-              className="glass-effect"
+              className="glass-effect text-xs sm:text-sm"
             >
               Next
               <ChevronRight className="w-4 h-4 ml-1" />
@@ -270,14 +267,14 @@ const LearningPresentation: React.FC = () => {
               <button
                 key={slide.id}
                 onClick={() => goToSlide(index)}
-                className={`min-w-32 p-3 rounded-lg transition-all duration-200 glass-effect ${
+                className={`min-w-28 sm:min-w-32 p-2 sm:p-3 rounded-lg transition-all duration-200 glass-effect ${
                   index === currentSlide
                     ? 'ring-2 ring-learning-primary scale-105'
                     : 'hover:scale-102'
                 }`}
               >
-                <h4 className="text-xs font-medium mb-1">Slide {slide.id}</h4>
-                <p className="text-xs text-muted-foreground line-clamp-2">
+                <h4 className="text-[10px] sm:text-xs font-medium mb-1">Slide {slide.id}</h4>
+                <p className="text-[10px] sm:text-xs text-muted-foreground line-clamp-2">
                   {slide.title}
                 </p>
               </button>
@@ -287,9 +284,9 @@ const LearningPresentation: React.FC = () => {
       </Card>
 
       {/* Footer */}
-      <div className="flex justify-between items-center mt-6 text-sm text-muted-foreground">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-6 text-xs sm:text-sm text-muted-foreground gap-2">
         <div>Made with ❤️ by Anuska Shukla</div>
-        <div>Use ← → arrow keys or click thumbnails to navigate</div>
+        <div>Use ← → arrow keys or tap thumbnails to navigate</div>
       </div>
     </div>
   );
