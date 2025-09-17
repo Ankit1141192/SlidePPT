@@ -19,6 +19,16 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        learning: {
+          primary: "hsl(var(--learning-primary))",
+          secondary: "hsl(var(--learning-secondary))",
+          accent: "hsl(var(--learning-accent))",
+          glass: "hsla(var(--learning-glass), 0.03)",
+        },
+        slide: {
+          bg: "hsl(var(--slide-bg))",
+          content: "hsl(var(--slide-content-bg))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

@@ -2,41 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Modern learning platform design system with dark theme and teal accents */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark learning theme */
+    --background: 215 28% 8%;
+    --foreground: 195 19% 92%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 215 32% 11%;
+    --card-foreground: 195 19% 92%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 215 32% 11%;
+    --popover-foreground: 195 19% 92%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 180 78% 45%;
+    --primary-foreground: 215 28% 8%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 215 20% 18%;
+    --secondary-foreground: 195 19% 92%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 215 16% 25%;
+    --muted-foreground: 195 10% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 180 78% 45%;
+    --accent-foreground: 215 28% 8%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 195 19% 92%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 215 20% 18%;
+    --input: 215 20% 18%;
+    --ring: 180 78% 45%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Learning platform specific colors */
+    --learning-primary: 180 78% 45%;
+    --learning-secondary: 197 71% 52%;
+    --learning-accent: 184 84% 35%;
+    --learning-bg-gradient-start: 215 28% 8%;
+    --learning-bg-gradient-end: 215 32% 4%;
+    --learning-card-glow: 180 78% 45%;
+    --learning-glass: 195 100% 100%;
+
+    /* Presentation specific */
+    --slide-bg: 215 32% 11%;
+    --slide-content-bg: 215 28% 14%;
+    --progress-bg: 180 78% 45%;
+    --thumbnail-border: 180 50% 30%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +114,51 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gradient-to-br from-[hsl(var(--learning-bg-gradient-start))] to-[hsl(var(--learning-bg-gradient-end))] text-foreground;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  }
+
+  /* Custom animations for learning platform */
+  .slide-enter {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  
+  .slide-enter-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+
+  .slide-exit {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  
+  .slide-exit-active {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.98);
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+
+  /* Glass morphism effect */
+  .glass-effect {
+    background: hsla(var(--learning-glass), 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsla(var(--learning-glass), 0.08);
+  }
+
+  /* Glow effects */
+  .learning-glow {
+    box-shadow: 0 0 30px hsla(var(--learning-card-glow), 0.15);
+  }
+
+  /* Progress animation */
+  .progress-fill {
+    background: linear-gradient(90deg, 
+      hsl(var(--learning-secondary)), 
+      hsl(var(--learning-primary))
+    );
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
