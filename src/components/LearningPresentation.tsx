@@ -287,7 +287,7 @@ const LearningPresentation: React.FC = () => {
 
       {/* Footer */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-6 text-xs sm:text-sm text-muted-foreground gap-2">
-        <div>Made with ❤️ by Anuska Shukla</div>
+        <div>Made with ❤️ by Group 3</div>
         <div>Use ← → arrow keys or tap thumbnails to navigate</div>
       </div>
     </div>
